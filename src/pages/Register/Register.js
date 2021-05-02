@@ -2,14 +2,13 @@ import React,{useState} from 'react'
 import loginImg from "../../login.svg";
 import {Link,useHistory} from 'react-router-dom'
 import {useSnackbar} from 'react-simple-snackbar'
-
+import axios from 'axios';
 
 const Register = () => {
   const [input,setInput] = useState({})
   const [openSnackbar]  = useSnackbar({position:'top-center'})
    const history = useHistory()
 
- 
    const handleInput= (e) =>{
     const {name,value} = e.target
     setInput(data =>{
@@ -20,18 +19,17 @@ const Register = () => {
     })
   }
   const register = ()=>{
-    if(input.username && input.email && input.password && input.confirm_password)
+    if(input.merge_username && input.user && input.merge_password && input.confirm_password)
     {
       
-      if( /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(input.email)){
-        if(input.password === input.confirm_password){
-          history.push('/')
+     
+        if(input.merge_password === input.confirm_password){
+          axios.post('http://127.0.0.1:8000/api/profile/',{merge_username:input.merge_username,merge_password:input.merge_password,user:2}).then(()=>{
+            history.push('/')
+          }).catch((err)=>console.log(err))
         }else{
           openSnackbar('Passwords donot match')
         }
-      }else{
-        openSnackbar('Please enter a valid email')
-      }
     }else{
       openSnackbar('Please fill all the credentials')
     }
@@ -46,11 +44,11 @@ const Register = () => {
           <div className="form">
             <div className="form-group">
               <label htmlFor="username">Username</label>
-              <input type="text" name="username" placeholder="username" onChange={handleInput} />
+              <input type="text" name="merge_username" placeholder="username" onChange={handleInput} />
             </div>
             <div className="form-group">
-              <label htmlFor="email">E-mail</label>
-              <input type="email" name="email" placeholder="email" onChange={handleInput} />
+              <label htmlFor="user">Github-Username</label>
+              <input type="text" name="user" placeholder="Github Username" onChange={handleInput} />
             </div>
 
             <div className="form-group">
@@ -58,7 +56,7 @@ const Register = () => {
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
-              <input name="password" type="password" placeholder="password" onChange={handleInput} />
+              <input name="merge_password" type="password" placeholder="password" onChange={handleInput} />
             </div>
             <div className="form-group">
               <label htmlFor="password">Confirm Password</label>

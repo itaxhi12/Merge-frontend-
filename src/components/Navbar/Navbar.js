@@ -1,15 +1,30 @@
 import React,{useState,useEffect} from 'react'
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
-import {store} from '../../redux/global'
 import {Link} from 'react-router-dom'
-import {useHistory} from 'react-router-dom'
+import axios from 'axios'
 import {useDispatch} from 'react-redux'
 import logo from '../../Assets/Logo.svg'
 const Navbar = () => {
     const dispatch = useDispatch()
-    const history = useHistory()
-    const [name,setName] = useState('')
+     const [name,setName] = useState('')
+    const [avatar,setAvatar] = useState('')
+    useEffect(()=>{
+    const getUser=()=>{
+        axios.get('http://127.0.0.1:8000/user').then(res=>{
+        setName(res.data.login)      
+        setAvatar(res.data.avatar_url)
+        dispatch({type:"LOGIN",data:res.data})
+      
+        })
+    }
+    getUser()
+   },[dispatch,setName,setAvatar])
+
+
+
+    
+ 
     const useStyles = makeStyles((theme) => ({
   
     large: {
@@ -18,26 +33,17 @@ const Navbar = () => {
   },
 }));
 const classes = useStyles()
+
 const logout = () =>{
     dispatch({type:"LOGOUT"})
-    history.push('/')
+    window.location = 'http://127.0.0.1:8000/accounts/logout'
 }
-
-useEffect(() => {
- if(store.getState().auth.loggedIn)
- {
-    setName(store.getState().auth.user.input.username) 
- }  
-    
-}, [setName])
-
-
 
 return (
         <div className= 'container-navbar'>
             <div className= 'container-navbar-icon'>
                 <Link to='/home'>
-                    <img src={logo}/>
+                    <img src={logo} alt=""/>
                 </Link>
             </div>
             <div className="container-navbar-input">
@@ -50,14 +56,14 @@ return (
  
             </div>
             <div className="container-navbar-profile">
-                <Avatar className={classes.large} alt=""/>
+                <Avatar src={avatar} className={classes.large} alt=""/>
             <div className="navbar-dropdown">
             <div className = 'navbar-dropdown-greet' >
                 <p>Hello, {name}</p>
             </div>
             <Link className="navbar-links" to='/profile'><button>Profile</button></Link>
             <Link className="navbar-links" to='/changepass'><button>Change Password</button></Link>
-
+            
             <button onClick ={logout}>Logout</button>
             </div>
             </div>

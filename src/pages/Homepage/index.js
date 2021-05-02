@@ -1,20 +1,24 @@
-import React,{useEffect} from 'react'
+import React from 'react'
 import Navbar from '../../components/Navbar/Navbar'
-import {store} from '../../redux/global'
-import {useHistory} from 'react-router-dom'
+import {useSelector} from 'react-redux'
 const Homepage = () => {
-   const history = useHistory()
-    useEffect(()=>{
-        if(!store.getState().auth.loggedIn){
-            history.push('/')
-        }
-   },[history]) 
-   
-    return (
+    const n = useSelector(state=>state.auth.user.login) 
 
-        <div>
+   return (
+        <>
+        <div style={{backgroundColor:'rgb(246,248,250)',width:"100vw",height:"80vh"}}>
+            <div style={{width:"100%"}}>
             <Navbar/>
-        </div>
+            </div>
+             <div>
+            <h1>
+                Welcome,{n}
+            </h1>
+            </div>
+        
+           </div>
+          
+        </>
     )
 }
 

@@ -1,0 +1,11 @@
+.container {
+  &-sidebar {
+    width: 25vw;
+    height: 60vh;
+    position: relative;
+    left: 0;
+    border: 1px solid rgba(lightgrey, 0.7);
+    // border: 1px solid black;
+    background-color: rgb(255, 255, 255);
+  }
+}

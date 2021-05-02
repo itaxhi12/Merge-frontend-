@@ -1,10 +1,7 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState} from 'react'
 import Navbar from '../../components/Navbar/Navbar'
-import {store} from '../../redux/global'
-import {useHistory} from 'react-router-dom'
 
 const ChangePasswords = () => {
-   const history = useHistory()
    const [input,setInput] = useState({}) 
       
    const handleInput= (e)=>{
@@ -20,11 +17,6 @@ const ChangePasswords = () => {
    const updatePass = ()=>{
      console.log(input)
    }
-   useEffect(()=>{
-        if(!store.getState().auth.loggedIn){
-            history.push('/')
-        }
-    },[history])
     return (
         <div>
             <Navbar/>

@@ -150,7 +150,8 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center; }
+  align-items: center;
+  background-color: #f6f8fa; }
   .profile-container .profile-header {
     margin-top: 3em;
     font-size: 2em;
@@ -311,6 +312,14 @@
 
 .container-navbar-profile:hover .navbar-dropdown {
   display: block; }
+
+.container-sidebar {
+  width: 25vw;
+  height: 60vh;
+  position: relative;
+  left: 0;
+  border: 1px solid rgba(211, 211, 211, 0.7);
+  background-color: white; }
 
 .addtodo__task {
   margin: 1em;
