@@ -21,14 +21,14 @@ const Login = () => {
     })
   }
   
-      axios.get('http://127.0.0.1:8000/api/profile/').then((res)=>{
-            console.table(res.data)
-          }).catch((err)=>console.log(err))
+
   const login = ()=>{
     if(input.username && input.password){
-        dispatch({type:"LOGIN",data:{input}})
-        history.push('/home')
-    }else{
+        
+      axios.post('http://127.0.0.1:8000/api/token/',input).then((res)=>{
+      dispatch({type:"LOGIN",data:res.data})
+      history.push('/home')
+      }).catch(err=>{openSnackbar('Please enter a valid username & password')})}else{
       openSnackbar('Please enter fill the credentials')
     }
   }

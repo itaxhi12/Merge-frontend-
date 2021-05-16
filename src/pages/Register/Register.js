@@ -25,7 +25,11 @@ const Register = () => {
      
         if(input.merge_password === input.confirm_password){
           axios.post('http://127.0.0.1:8000/api/profile/',{merge_username:input.merge_username,merge_password:input.merge_password,user:2}).then(()=>{
-            history.push('/')
+            axios.get('http://127.0.0.1:8000/api/user/').then((res)=>{
+            const user = res.data.filter(data=>data.username === input.user )
+            
+            axios.put('http://127.0.0.1:8000/api/user/'+user[0].id+'/',user[0]).then(history.push('/'))
+            })
           }).catch((err)=>console.log(err))
         }else{
           openSnackbar('Passwords donot match')

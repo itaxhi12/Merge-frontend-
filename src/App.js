@@ -7,6 +7,7 @@ import Profile from './pages/Profile/Profile';
 import ToDoList from './ToDoList';
 import Register from './pages/Register/Register'
 import ChangePasswords from './pages/ChangePassword/ChangePasswords'
+import TodoRepos from './ToDoList/TodoRepos';
 function App() {
  
 
@@ -21,7 +22,8 @@ function App() {
          <Route path = '/register' exact component = {Register}/>
         <Route path = '/changepass' exact component={ChangePasswords}/>
          <Route path='/profile' exact component= {Profile}/>
-        <Route path='/todo' exact component={ToDoList}/>
+        <Route path='/todos/:repo' exact component={ToDoList}/>
+        <Route path ='/todorepos' exact component={TodoRepos}/>
        </Switch>
      </Router>
      

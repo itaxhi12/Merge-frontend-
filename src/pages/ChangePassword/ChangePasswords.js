@@ -1,9 +1,13 @@
 import React,{useState} from 'react'
 import Navbar from '../../components/Navbar/Navbar'
-
+import {useSelector} from 'react-redux'
+import {useSnackbar} from 'react-simple-snackbar'
+import {Redirect} from 'react-router-dom'
+import axios from 'axios'
 const ChangePasswords = () => {
    const [input,setInput] = useState({}) 
-      
+   const {openSnackbar}  = useSnackbar()
+   const user = useSelector(state=>state.auth.user.user)
    const handleInput= (e)=>{
     const {name,value} = e.target   
     setInput(data=>{
@@ -15,9 +19,14 @@ const ChangePasswords = () => {
    }
 
    const updatePass = ()=>{
-     console.log(input)
+     axios.post("http://127.0.0.1:8000/api/token/",{username:user.username}).then(()=>{
+       if(input.password === input.confirmpassword){
+         //axios
+       }
+     })
    }
-    return (
+    if(user){
+   return (
         <div>
             <Navbar/>
             <br/>
@@ -53,5 +62,10 @@ const ChangePasswords = () => {
 
         </div>
     )
+   }else{
+     return(
+       <Redirect to='/'/>
+     )
+   }
 }
 export default ChangePasswords

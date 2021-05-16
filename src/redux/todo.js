@@ -8,7 +8,7 @@ const todo = (state = initialState,action) =>{
             return {
                 ...state,
                 todos:action.item
-            }
+            }   
     
         case "ADD_TASK":
             return{
@@ -17,7 +17,7 @@ const todo = (state = initialState,action) =>{
             }
         case "REMOVE_TASK":
             let oldTodos = [...state.todos]
-            let index = oldTodos.findIndex((todo)=>{return todo._id === action.id})
+            let index = oldTodos.findIndex((todo)=>{return todo.id === action.id})
             const f = oldTodos.slice(0,index)
             const s= oldTodos.slice(index+1,oldTodos.length)
             let newTodos = f.concat(s)
@@ -28,7 +28,7 @@ const todo = (state = initialState,action) =>{
         case "CHANGE_STATUS":
             let Todos = [...state.todos]
             let i = Todos.findIndex((todo)=>{return todo.id === action.id})
-            Todos[i].status = true
+            Todos[i].completed = true
             return{
                 ...state,
                 todos:Todos

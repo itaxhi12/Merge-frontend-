@@ -1,7 +1,8 @@
+import axios from 'axios';
 import React,{useState} from 'react'
 import {useDispatch} from 'react-redux'
-const AddTodo = () => {
-const dispatch = useDispatch()
+const AddTodo = ({repo}) => {
+
 
 let today = new Date();
 let dd = today.getDate();
@@ -16,7 +17,7 @@ if(dd<10){
 const [input,setInput]= useState({
     date:yyyy+'-'+mm+'-'+dd
 })
-   
+
 const handleInput=(e)=>{
     const {name,value} = e.target
     setInput(data=>{
@@ -27,8 +28,13 @@ const handleInput=(e)=>{
         }
     })
 }
+const dispatch = useDispatch()
 const addTask = ()=>{
-    dispatch({type:"ADD_TASK",item:input})
+    axios.post('http://127.0.0.1:8000/api/todos/',{title:input.title,deadline:input.date,repo:repo,assigned_merge_user:"itaxhi12",completed:false})
+    .then((res)=>{
+        dispatch({type:"ADD_TASK",item:res.data})
+    })
+    
 }
 
     return (
@@ -40,3 +46,15 @@ const addTask = ()=>{
     )
 }
 export default AddTodo
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,10 +1,13 @@
 import React from 'react'
 import Navbar from '../../components/Navbar/Navbar'
 import {useSelector} from 'react-redux'
+import {Redirect} from 'react-router-dom'
 const Homepage = () => {
-    const n = useSelector(state=>state.auth.user.login) 
+ 
+    const user = useSelector(state=>state.auth.user) 
 
-   return (
+if(user.user){
+    return (
         <>
         <div style={{backgroundColor:'rgb(246,248,250)',width:"100vw",height:"80vh"}}>
             <div style={{width:"100%"}}>
@@ -12,7 +15,7 @@ const Homepage = () => {
             </div>
              <div>
             <h1>
-                Welcome,{n}
+                Welcome,{user.user.username}
             </h1>
             </div>
         
@@ -20,6 +23,11 @@ const Homepage = () => {
           
         </>
     )
+}else{
+    return(
+    <Redirect to='/'/>
+    )
+}
 }
 
 export default Homepage
