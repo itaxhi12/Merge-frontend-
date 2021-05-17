@@ -8,12 +8,14 @@ import ToDoList from './ToDoList';
 import Register from './pages/Register/Register'
 import ChangePasswords from './pages/ChangePassword/ChangePasswords'
 import TodoRepos from './ToDoList/TodoRepos';
+import Chat from './Chat/components/App/index'
 function App() {
+
  
 
    return (
     <div className="app">
-     <Router>
+      <Router>
        <Switch>
          <Route path='/home' exact>
           <Homepage/>
@@ -24,9 +26,10 @@ function App() {
          <Route path='/profile' exact component= {Profile}/>
         <Route path='/todos/:repo' exact component={ToDoList}/>
         <Route path ='/todorepos' exact component={TodoRepos}/>
+        <Route path = '/chat' exact component = {Chat}/>
        </Switch>
      </Router>
-     
+    
      
 
     </div>

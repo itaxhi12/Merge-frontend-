@@ -1,11 +1,33 @@
 .container {
   &-sidebar {
-    width: 25vw;
-    height: 60vh;
-    position: relative;
+    margin-top: 3.5em;
+    height: 100%;
+    width: 17em;
+    position: fixed;
+    // z-index: 1;
+    top: 0;
     left: 0;
-    border: 1px solid rgba(lightgrey, 0.7);
-    // border: 1px solid black;
-    background-color: rgb(255, 255, 255);
+    overflow-x: hidden;
+    padding-top: 20px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding-left: 1em;
+    &-input {
+      width: 17em;
+      height: 2em;
+      border: 1px solid rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      &:focus {
+        outline: none;
+      }
+    }
+    &-links {
+      text-decoration: none;
+      color: rgb(3, 102, 214);
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }

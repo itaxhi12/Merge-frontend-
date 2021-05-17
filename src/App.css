@@ -314,12 +314,30 @@
   display: block; }
 
 .container-sidebar {
-  width: 25vw;
-  height: 60vh;
-  position: relative;
+  margin-top: 3.5em;
+  height: 100%;
+  width: 17em;
+  position: fixed;
+  top: 0;
   left: 0;
-  border: 1px solid rgba(211, 211, 211, 0.7);
-  background-color: white; }
+  overflow-x: hidden;
+  padding-top: 20px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding-left: 1em; }
+  .container-sidebar-input {
+    width: 17em;
+    height: 2em;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 10px; }
+    .container-sidebar-input:focus {
+      outline: none; }
+  .container-sidebar-links {
+    text-decoration: none;
+    color: #0366d6; }
+    .container-sidebar-links:hover {
+      text-decoration: underline; }
 
 .addtodo__task {
   margin: 1em;

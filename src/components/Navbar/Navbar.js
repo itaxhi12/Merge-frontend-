@@ -7,7 +7,7 @@ import {useDispatch,useSelector} from 'react-redux'
 import logo from '../../Assets/Logo.svg'
 const Navbar = () => {
     const dispatch = useDispatch()
-   
+    const github = useSelector(state=>state.auth.github)
     const user = useSelector(state=>state.auth.user)
   
     const useStyles = makeStyles((theme) => ({
@@ -32,13 +32,14 @@ return (
                 </Link>
             </div>
             <div className="container-navbar-tabs">
-                <h5 className="navbar-tabs">Chat</h5>
+                <Link className="navbar-tabs" to='/chat'><h5 className="navbar-tabs">Chat</h5>
+                </Link>
                 <Link className="navbar-tabs" to='/todorepos'><h5 className="navbar-tabs">ToDo List</h5>
                 </Link>
  
             </div>
             <div className="container-navbar-profile">
-                <Avatar src={null} className={classes.large} alt=""/>
+                <Avatar src={github.avatar_url} className={classes.large} alt=""/>
             <div className="navbar-dropdown">
             <div className = 'navbar-dropdown-greet' >
                 <p>Hello, {user.user.username}</p>

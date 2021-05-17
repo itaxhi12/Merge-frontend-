@@ -19,10 +19,11 @@ const ViewTodos = ({repo}) => {
             })},[dispatch,repo])
 
 
-
+            const user  = useSelector(state=>state.auth.user.user.username)
+    
            const selectTodos = state => state.todo.todos
             const todos= useSelector(selectTodos)
-            console.table(todos)
+       
             function render (obj){
  
             const del = ()=>{
@@ -37,14 +38,17 @@ const ViewTodos = ({repo}) => {
             }
                 return(
         <div key={obj.id} style={{height:"3em" ,display:"flex",width:"40em",fontSize:"large",background:"transparent",alignItems:'center',justifyContent:'space-around',margin:"1em",border:"1px solid rgba(169, 169, 169, 0.5)",borderRadius:"10px"}}>
-            <button style={{background:"none",border:'none',cursor:"pointer",outline:"none"}} onClick ={del}>
+          
+          {user ===obj.assigned_merge_user?(         <button style={{background:"none",border:'none',cursor:"pointer",outline:"none"}} onClick ={del}>
             <DeleteOutlineIcon/>
-            </button>
+            </button>):(null)}
+   
             <h3>{obj.title}
             </h3>
             <p>{obj.deadline}</p>
             <p>{obj.assigned_merge_user}</p>
-            {obj.completed?(<h3 style={{color:"green"}}>Completed</h3>):(<input type="checkbox" defaultChecked={obj.completed} onChange={changeStatus}/>)}
+            {obj.completed?(<h3 style={{color:"green"}}>Completed</h3>):(
+            user === obj.assigned_merge_user?(<input type="checkbox" defaultChecked={obj.completed} onChange={changeStatus}/>):(null))}
             </div>      
  )
     }

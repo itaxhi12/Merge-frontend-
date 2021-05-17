@@ -4,20 +4,12 @@ import Navbar from '../components/Navbar/Navbar'
 import {Link} from 'react-router-dom'
 import {useDispatch,useSelector} from 'react-redux'
 const TodoRepos = () => {
-    const dispatch = useDispatch()
 
     const repos = useSelector(state=>(state.repos.repos))
     const username = useSelector(state=>state.auth.user.user.username)
     const [filter,setFilter] = useState([])
     const [search,setSearch ] = useState('')
     
-    useEffect(()=>{
-        axios.post('http://127.0.0.1:8000/repo/view/',{username:username}).then((res)=>{
-        const  repos = JSON.parse(res.data)
-        dispatch({type:"GET_REPOS",data:repos.data.viewer.repositories.nodes})    
-    })        
-        
-    },[dispatch,username])
     
 useEffect(()=>{
     setFilter(
@@ -28,7 +20,7 @@ useEffect(()=>{
                 return repo
             }else{
                 return null 
-            }
+            }   
         })
     )
 },[search,repos,setFilter])
@@ -46,7 +38,7 @@ useEffect(()=>{
         <div>
             <Navbar/>
             <div style={{display:'flex',alignItems:'center' ,justifyContent:'center'}}>
-              <input  className="addtodo__task" name="password" placeholder="password" onChange={e=>setSearch(e.target.value)} />
+              <input  className="addtodo__task" name="password" placeholder="Search Repos" onChange={e=>setSearch(e.target.value)} />
                 </div>
             <div style={{display:'flex',flexDirection:"column",alignItems:"center",justifyContent:"center"}}> 
             {filter.map(render)}
