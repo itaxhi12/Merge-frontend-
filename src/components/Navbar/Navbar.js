@@ -2,10 +2,11 @@ import React from 'react'
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import {Link,Redirect} from 'react-router-dom'
-
+import {useHistory} from 'react-router-dom'
 import {useDispatch,useSelector} from 'react-redux'
 import logo from '../../Assets/Logo.svg'
 const Navbar = () => {
+    const history = useHistory()
     const dispatch = useDispatch()
     const github = useSelector(state=>state.auth.github)
     const user = useSelector(state=>state.auth.user)
@@ -21,7 +22,7 @@ const classes = useStyles()
 
 const logout = () =>{
     dispatch({type:"LOGOUT"})
-    window.location = 'http://127.0.0.1:8000/accounts/logout'
+    history.push('/')
 }
 if(user.user){
 return (

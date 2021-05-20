@@ -7,7 +7,6 @@ const Sidebar = () => {
     const [search,setSearch] = useState('')
     const [filter,setFilter] = useState([])
     const repos = useSelector(state=>(state.repos.repos))
-console.log(repos)
     useEffect(()=>{
         axios.post('http://127.0.0.1:8000/repo/view/',{username:username}).then((res)=>{
         const  repos = JSON.parse(res.data)
@@ -31,10 +30,10 @@ console.log(repos)
 const render=(obj)=>{
     const address = `https://github.com/${obj.owner.login}/${obj.name}`
     return(
-        <>
+        <div key={obj.name}>
         
-    <a className="container-sidebar-links"  href={address} target="_blank" rel="norefferer"><h5>{obj.owner.login}/{obj.name}</h5></a>
-        </>
+    <a  className="container-sidebar-links"  href={address} target="_blank" rel="noreferrer"><h5>{obj.owner.login}/{obj.name}</h5></a>
+        </div>
     )
 }
     return (

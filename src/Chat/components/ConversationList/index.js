@@ -15,10 +15,8 @@ export default function ConversationList(props) {
   useEffect(() => {
     getConversations()
   },[])
-console.log(conversations)
  const getConversations = () => {
     axios.get('http://127.0.0.1:8000/chat/').then(res => {
-    console.log(res.data)  
     setConversations(
         res.data.map(obj=>{
           if(obj.collaborators.includes(username))
@@ -27,6 +25,7 @@ console.log(conversations)
       )
     });
   }
+  
   if(username)
   {
     return (
@@ -44,9 +43,10 @@ console.log(conversations)
         {
           conversations.map(conversation =>
             <ConversationListItem
-              key={conversation.repo_name}
-              data={conversation.repo_name}
+              key={conversation.id}
+              data={conversation}
             />
+            
           )
         }
       </div>

@@ -1,12 +1,10 @@
 import React, { useState,useEffect} from 'react'
-import axios from 'axios'
 import Navbar from '../components/Navbar/Navbar'
 import {Link} from 'react-router-dom'
-import {useDispatch,useSelector} from 'react-redux'
+import {useSelector} from 'react-redux'
 const TodoRepos = () => {
 
     const repos = useSelector(state=>(state.repos.repos))
-    const username = useSelector(state=>state.auth.user.user.username)
     const [filter,setFilter] = useState([])
     const [search,setSearch ] = useState('')
     

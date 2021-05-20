@@ -4,43 +4,26 @@ import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
 import Message from '../Message';
 import moment from 'moment';
-
+import {useSelector } from 'react-redux'
 import './MessageList.css';
-
-const MY_USER_ID = 'apple';
+import Text from 'antd/lib/typography/Text';
 
 export default function MessageList(props) {
-  const [messages, setMessages] = useState([])
+const messages = useSelector(state=>state.chat.messages)
 
-  useEffect(() => {
-    getMessages();
-  },[])
+const MY_USER_ID = useSelector(state=>state.auth.user.user.username);
 
+   const name = useSelector(state=>state.chat.reponame)
   
-  const getMessages = () => {
-     const ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/1/')
-     
-     const subscribe = {
-      data: {
-      command:"fetch_messages",
-      chatId:1
-      }
-    };
-     ws.onopen=(e)=>{
-      console.log("Hello")
-        // ws.send(subscribe).then((res)=>[
-        // ])
-      }
-      
-  }
-
-  const renderMessages = () => {
+   const renderMessages = () => {
+   if(messages){
     let i = 0;
     let messageCount = messages.length;
     let tempMessages = [];
 
     while (i < messageCount) {
       let previous = messages[i - 1];
+
       let current = messages[i];
       let next = messages[i + 1];
       let isMine = current.author === MY_USER_ID;
@@ -74,8 +57,9 @@ export default function MessageList(props) {
           endsSequence = false;
         }
       }
-
-      tempMessages.push(
+    
+  tempMessages.push(
+       
         <Message
           key={i}
           isMine={isMine}
@@ -85,18 +69,22 @@ export default function MessageList(props) {
           data={current}
         />
       );
+  
 
       // Proceed to the next message.
       i += 1;
-    }
+  }
+    
+
 
     return tempMessages;
+}
   }
 
     return(
       <div className="message-list">
         <Toolbar
-          title="Conversation Title"
+          title={name}
           rightItems={[
             <ToolbarButton key="info" icon="ion-ios-information-circle-outline" />,
             <ToolbarButton key="video" icon="ion-ios-videocam" />,

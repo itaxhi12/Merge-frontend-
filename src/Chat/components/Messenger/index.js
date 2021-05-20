@@ -2,9 +2,10 @@ import React from 'react';
 import ConversationList from '../ConversationList';
 import MessageList from '../MessageList';
 import './Messenger.css';
-
+import {useSelector} from 'react-redux'
 export default function Messenger(props) {
-    return (
+const chatid = useSelector(state=>state.chat.chatid)
+  return (
       <div className="messenger">
         {/* <Toolbar
           title="Messenger"
@@ -26,11 +27,12 @@ export default function Messenger(props) {
         /> */}
 
         <div className="scrollable sidebar">
-          <ConversationList />
+         <ConversationList/>
         </div>
 
         <div className="scrollable content">
-          <MessageList />
+                    {chatid?( <MessageList />):(<p>Please select a chat</p>)}
+
         </div>
       </div>
     );
